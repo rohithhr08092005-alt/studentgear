@@ -1,0 +1,30 @@
+# Node
+node_modules/
+npm-debug.log*
+.env
+
+# Logs
+logs
+*.log
+.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+dist/
+build/
+
+# Backend
+backend/node_modules/
+
+# Frontend
+frontend/node_modules/
+
+# GitHub actions
+.github/

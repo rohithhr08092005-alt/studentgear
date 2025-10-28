@@ -1,0 +1,12 @@
+{
+    "name": "studentgear-e2e",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "test": "node test-buy.js && node test-search.js && node test-chat-buy.js",
+        "install:fast": "npm i --no-audit --no-fund"
+    },
+    "dependencies": {
+        "puppeteer": "^20.0.0"
+    }
+}

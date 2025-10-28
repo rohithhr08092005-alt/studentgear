@@ -1,0 +1,228 @@
+/* Buy Modal Styles */
+/* Z-index layers */
+:root {
+    --z-modal-backdrop: 10000;
+    --z-modal-content: 10001;
+    --z-notifications: 10002;
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: var(--z-modal-backdrop);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-container.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.modal-container.closing {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.modal-container .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(5px);
+    z-index: var(--z-modal-backdrop);
+}
+
+.modal-container .modal-header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.modal-container .modal-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.modal-container .modal-close {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--text-muted);
+    padding: 0.5rem;
+    border-radius: 8px;
+    line-height: 1;
+    transition: all 0.3s ease;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+}
+
+.modal-container .modal-close:hover {
+    color: var(--text);
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.modal-container .modal-content {
+    position: relative;
+    z-index: var(--z-modal-content);
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.98));
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+    width: 90%;
+    max-width: 500px;
+    overflow: hidden;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-container.visible .modal-content {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal-container .modal-body {
+    padding: 0 2rem 2rem;
+}
+
+.modal-container .product-details {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.modal-container .product-image {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    background: var(--dark-lighter);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+}
+
+.modal-container .product-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.modal-container .product-price {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-container .product-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.modal-container .store-buttons {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.modal-container .store-btn {
+    padding: 1rem;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-container .store-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+}
+
+.modal-container .store-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.modal-container .store-btn.amazon {
+    background: linear-gradient(135deg, #FF9900, #FF6600);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 153, 0, 0.2);
+}
+
+.modal-container .store-btn.flipkart {
+    background: linear-gradient(135deg, #2874F0, #1A53D1);
+    color: white;
+    box-shadow: 0 8px 20px rgba(40, 116, 240, 0.2);
+}
+
+@media (max-width: 480px) {
+    .modal-container .modal-content {
+        width: calc(100% - 2rem);
+        margin: 1rem;
+    }
+
+    .modal-container .modal-header {
+        padding: 1.25rem;
+    }
+
+    .modal-container .modal-body {
+        padding: 0 1.25rem 1.25rem;
+    }
+
+    .modal-container .product-details {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 1rem;
+        padding: 1.25rem;
+    }
+
+    .modal-container .product-image {
+        width: 120px;
+        height: 120px;
+        font-size: 3.5rem;
+    }
+
+    .modal-container .store-btn {
+        padding: 1.25rem;
+        font-size: 1.1rem;
+    }
+}

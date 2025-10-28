@@ -1,0 +1,231 @@
+/* Enhance modals and cards */
+.modal-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.modal-sorting {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.sort-select {
+    padding: 0.6rem 2rem 0.6rem 1rem;
+    background: var(--dark-lighter);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 160px;
+}
+
+.sort-select:hover {
+    border-color: var(--primary);
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.page-prev,
+.page-next {
+    padding: 0.5rem 1rem;
+    background: var(--dark-lighter);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-prev:hover,
+.page-next:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.page-prev:disabled,
+.page-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: var(--dark-lighter);
+    border-color: var(--border);
+}
+
+.page-info {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* Enhanced search results */
+.search-results-modal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+}
+
+.search-results-modal .result-count {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-right: auto;
+    margin-left: 1rem;
+}
+
+.search-result-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-result-item:hover {
+    transform: translateX(4px);
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.result-meta {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    flex-wrap: wrap;
+}
+
+.branch-tag {
+    background: var(--primary);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.category-tag {
+    background: var(--secondary);
+    color: white;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.badge-tag {
+    background: var(--accent);
+    color: var(--dark);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.product-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin: 0.75rem 0;
+}
+
+/* Enhanced Buy Options Modal */
+.buy-options-modal {
+    max-width: 500px;
+}
+
+.buy-options-modal .modal-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.buy-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.buy-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.buy-link.amazon {
+    background: linear-gradient(135deg, #ff9900, #ff5722);
+}
+
+.buy-link.flipkart {
+    background: linear-gradient(135deg, #2874f0, #1a4ba7);
+}
+
+.buy-link:hover {
+    transform: translateY(-2px) scale(1.02);
+    filter: brightness(1.1);
+}
+
+.disclaimer {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .modal-controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .modal-sorting {
+        width: 100%;
+    }
+
+    .sort-select {
+        width: 100%;
+    }
+
+    .buy-links {
+        grid-template-columns: 1fr;
+    }
+
+    .branch-products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
