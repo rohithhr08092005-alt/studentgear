@@ -1,9 +1,9 @@
 // app.loader.js — loads application scripts sequentially to reduce number of <script> tags in HTML
 (function () {
+    // Note: script.js already contains auth and search functionality,
+    // so we don't load the separate search.js and auth.js modules.
     const scripts = [
         'script.js',
-        'search.js',
-        'auth.js',
         'filters.js',
         'contact.js',
         'cart-manager.js'
