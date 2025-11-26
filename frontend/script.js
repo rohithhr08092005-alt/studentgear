@@ -131,7 +131,7 @@ const PRODUCTS_BY_BRANCH = {
     // Populated branches (CSE/ECE/MECH/CIVIL/EEE) - ~10 items each for initial catalog
     'CSE': [
         { name: 'Student Developer Laptop', price: 54999, image: '💻', description: 'Lightweight laptop for coding and projects.', badge: 'Laptop', category: 'Laptops', aliases: ['laptop', 'developer laptop'] },
-        { name: 'Mechanical Keyboard', price: 3799, image: '⌨️', description: 'Tactile mechanical keyboard for fast typing.', badge: 'Accessory', aliases: ['keyboard', 'mechanical keyboard'] },
+        { name: 'Mechanical Keyboard', price: 3799, image: '⌨️', description: 'Tactile mechanical keyboard for fast typing.', badge: 'Accessory', aliases: ['keyboard', 'mechanical keyboard'], affiliates: { amazon: 'https://amzn.to/3XiWIuU' }, amazonLink: 'https://amzn.to/3XiWIuU' },
         { name: 'USB-C Hub', price: 1299, image: '🔌', description: 'Multiport USB-C hub for extra ports.', badge: 'Accessory', aliases: ['hub', 'usb hub'] },
         { name: 'Portable SSD 1TB', price: 6999, image: '💾', description: 'Fast NVMe portable SSD for datasets.', badge: 'Storage', aliases: ['ssd', 'portable ssd'] },
         { name: 'Noise Cancelling Headset', price: 4999, image: '🎧', description: 'Headset for focus and online labs.', badge: 'Audio', aliases: ['headset', 'earphones'] },
@@ -140,10 +140,13 @@ const PRODUCTS_BY_BRANCH = {
         { name: 'Laptop Cooling Pad', price: 799, image: '🧊', description: 'Keep your laptop cool under load.', badge: 'Accessory', aliases: ['cooling pad'] },
         { name: 'USB Debugger', price: 2499, image: '🔍', description: 'USB debugging tool for embedded dev.', badge: 'Tool', aliases: ['debugger'] },
         { name: 'Webcam 1080p', price: 2499, image: '📷', description: 'HD webcam for online classes.', badge: 'Accessory', aliases: ['webcam'] },
+        { name: 'Casio FX-991CW', price: 1529, image: '🔢', description: 'Casio scientific calculator FX-991CW — reliable for exams and labs.', badge: 'Calculator', aliases: ['casio', 'fx-991cw'], affiliates: { amazon: 'https://amzn.to/3Xf9YAN' }, amazonLink: 'https://amzn.to/3Xf9YAN' },
+        // Popular books useful for students
+        { name: 'Atomic Habits', price: 799, image: '📘', description: 'Atomic Habits by James Clear — practical strategies to build good habits and break bad ones.', badge: 'Book', aliases: ['atomic habits', 'atomic', 'james clear'], affiliates: { amazon: 'https://amzn.to/4ad4Jci' }, amazonLink: 'https://amzn.to/4ad4Jci' },
         // --- CSE Laptops (extended to ~30 items) ---
         { name: 'Lenovo SlimPad 5i', price: 55999, image: '💻', description: 'SlimPad 5i — ultralight for students.', badge: 'Laptop', category: 'Laptops', aliases: ['lenovo slimpad', 'slimpad 5i'], affiliates: { amazon: 'https://www.amazon.in/dp/B0EXAMPLELENOVO', flipkart: 'https://www.flipkart.com/item/lenovo-slimpad-5i' }, amazonLink: 'https://www.amazon.in/dp/B0EXAMPLELENOVO', flipkartLink: 'https://www.flipkart.com/item/lenovo-slimpad-5i' },
         { name: 'Dell Inspiron 15', price: 45999, image: '💻', description: 'Dell Inspiron series, reliable for study.', badge: 'Laptop', category: 'Laptops', aliases: ['dell inspiron'], amazonLink: 'https://www.amazon.in/dp/B0EXAMPDELL1', flipkartLink: 'https://www.flipkart.com/item/dell-inspiron-15' },
-        { name: 'HP Pavilion X360', price: 49999, image: '💻', description: 'Convertible Pavilion for note-taking.', badge: 'Laptop', category: 'Laptops', aliases: ['hp pavilion'], amazonLink: 'https://www.amazon.in/dp/B0EXAMPHP1', flipkartLink: 'https://www.flipkart.com/item/hp-pavilion-x360' },
+        { name: 'HP Pavilion X360', price: 49999, image: '💻', description: 'Convertible Pavilion for note-taking.', badge: 'Laptop', category: 'Laptops', aliases: ['hp pavilion'], imageUrl: 'assets/hp pevilian.jpeg.jpg', amazonLink: 'https://amzn.to/488WECM', flipkartLink: 'https://www.flipkart.com/item/hp-pavilion-x360' },
         { name: 'Asus VivoBook 14', price: 38999, image: '💻', description: 'Compact VivoBook for everyday coding.', badge: 'Laptop', category: 'Laptops', aliases: ['asus vivobook'], amazonLink: 'https://www.amazon.in/dp/B0EXAMPASUS1', flipkartLink: 'https://www.flipkart.com/item/asus-vivobook-14' },
         { name: 'Acer Aspire 5', price: 34999, image: '💻', description: 'Affordable Aspire for students.', badge: 'Laptop', category: 'Laptops', aliases: ['acer aspire'], amazonLink: 'https://www.amazon.in/dp/B0EXAMPACER1', flipkartLink: 'https://www.flipkart.com/item/acer-aspire-5' },
         { name: 'Microsoft Surface Go', price: 64999, image: '💻', description: 'Surface Go for light development on the go.', badge: 'Laptop', category: 'Laptops', aliases: ['surface go'], amazonLink: 'https://www.amazon.in/dp/B0EXAMPMSFT1', flipkartLink: 'https://www.flipkart.com/item/surface-go' },
@@ -681,6 +684,12 @@ const affiliateManager = {
         }
     }
 };
+
+// Register quick affiliate overrides for specific featured products
+// (added: Casio FX-991CW — affiliate shortlink provided by user)
+affiliateManager.updateAffiliateLinks('Casio FX-991CW', { amazon: 'https://amzn.to/4rnIiqW' });
+// Also register a variant with the special character typo that appears in the markup
+affiliateManager.updateAffiliateLinks('Casi₹o FX-991CW', { amazon: 'https://amzn.to/4rnIiqW' });
 
 // Build a quick lookup of products by lowercase name for chatbot/product search
 // Utility: levenshtein distance for fuzzy matching
@@ -1784,3 +1793,285 @@ if ('IntersectionObserver' in window) {
 console.log('%c👋 Welcome to StudentGear!', 'color: #6366f1; font-size: 24px; font-weight: bold;');
 console.log('%c🎓 Built for students by students', 'color: #10b981; font-size: 16px;');
 console.log('%c💻 Need help? Contact us at support@studentgear.com', 'color: #94a3b8; font-size: 14px;');
+
+// ===== CUSTOM PRODUCT ADDER (admin-friendly) =====
+// Allows adding products at runtime (persisted to localStorage). Supports image file upload (stored as data URL)
+// Usage: Click the floating + button added to the page, fill the form and submit. Products are saved under 'customProducts'.
+
+// Load custom products from localStorage and merge into PRODUCTS_BY_BRANCH and PRODUCT_LOOKUP
+function loadCustomProducts() {
+    try {
+        const raw = localStorage.getItem('customProducts');
+        if (!raw) return;
+        const custom = JSON.parse(raw);
+        if (!Array.isArray(custom)) return;
+        custom.forEach(p => {
+            const branch = (p.branch || 'CSE').toUpperCase();
+            if (!PRODUCTS_BY_BRANCH[branch]) PRODUCTS_BY_BRANCH[branch] = [];
+            // Avoid duplicates by name
+            const exists = PRODUCTS_BY_BRANCH[branch].some(x => x.name === p.name);
+            if (!exists) PRODUCTS_BY_BRANCH[branch].push(p);
+
+            // Add to lookup map for chatbot/search
+            try {
+                PRODUCT_LOOKUP[p.name.toLowerCase()] = p;
+                if (Array.isArray(p.aliases)) p.aliases.forEach(a => PRODUCT_LOOKUP[a.toLowerCase()] = p);
+            } catch (e) {
+                // PRODUCT_LOOKUP may be a const built earlier; mutate if possible
+            }
+        });
+    } catch (e) {
+        console.error('Failed to load custom products', e);
+    }
+}
+
+// Save one product into localStorage customProducts
+function saveCustomProduct(product) {
+    try {
+        const raw = localStorage.getItem('customProducts');
+        const arr = raw ? JSON.parse(raw) : [];
+        arr.push(product);
+        localStorage.setItem('customProducts', JSON.stringify(arr));
+    } catch (e) {
+        console.error('Failed to save custom product', e);
+    }
+}
+
+// Create a small floating FAB to trigger the add-product modal
+(function createAddProductFab() {
+    const fab = document.createElement('button');
+    fab.className = 'fab-add-product';
+    fab.title = 'Add product';
+    fab.style.position = 'fixed';
+    fab.style.right = '18px';
+    fab.style.bottom = '18px';
+    fab.style.width = '46px';
+    fab.style.height = '46px';
+    fab.style.borderRadius = '50%';
+    fab.style.border = 'none';
+    fab.style.background = '#10b981';
+    fab.style.color = '#fff';
+    fab.style.fontSize = '26px';
+    fab.style.cursor = 'pointer';
+    fab.style.boxShadow = '0 6px 18px rgba(16,185,129,0.18)';
+    fab.style.zIndex = '9999';
+    fab.textContent = '+';
+    fab.setAttribute('aria-label', 'Add product');
+    fab.addEventListener('click', openAddProductModal);
+    document.addEventListener('DOMContentLoaded', () => document.body.appendChild(fab));
+})();
+
+// Open modal to add product (supports image file input or image URL)
+function openAddProductModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-container add-product-modal';
+    modal.style.zIndex = '10000';
+    modal.innerHTML = `
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" style="max-width:560px;padding:18px;">
+            <div class="modal-header">
+                <h3>Add product</h3>
+                <button class="modal-close" aria-label="Close" type="button">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="addProductForm">
+                    <div style="display:flex;gap:8px;margin-bottom:8px;"><input name="name" placeholder="Product name" required style="flex:1;padding:8px;" /><input name="price" placeholder="Price (number)" required style="width:120px;padding:8px;"/></div>
+                    <div style="display:flex;gap:8px;margin-bottom:8px;"><select name="branch" style="padding:8px;width:180px;">${Object.keys(PRODUCTS_BY_BRANCH).map(b => `<option value="${b}">${b}</option>`).join('')}</select><input name="category" placeholder="Category" style="flex:1;padding:8px;"/></div>
+                    <div style="margin-bottom:8px;"><input name="amazonLink" placeholder="Amazon link (optional)" style="width:100%;padding:8px;"/></div>
+                    <div style="margin-bottom:8px;"><input name="flipkartLink" placeholder="Flipkart link (optional)" style="width:100%;padding:8px;"/></div>
+                    <div style="margin-bottom:8px;display:flex;gap:8px;"><input name="imageUrl" placeholder="Image URL (optional)" style="flex:1;padding:8px;"/><input type="file" name="imageFile" accept="image/*" style="width:140px;padding:4px;"/></div>
+                    <div style="margin-bottom:8px;"><textarea name="description" rows="3" placeholder="Description" style="width:100%;padding:8px;"></textarea></div>
+                    <div style="text-align:right;"><button type="submit" class="btn-primary" style="padding:8px 12px;">Add product</button></div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    const close = () => { modal.remove(); };
+    modal.querySelector('.modal-close').addEventListener('click', close);
+    modal.querySelector('.modal-backdrop').addEventListener('click', close);
+
+    const form = modal.querySelector('#addProductForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const name = fd.get('name').trim();
+        const price = parseFloat(fd.get('price')) || 0;
+        const branch = (fd.get('branch') || 'CSE').toUpperCase();
+        const category = fd.get('category') || '';
+        const amazonLink = fd.get('amazonLink') || undefined;
+        const flipkartLink = fd.get('flipkartLink') || undefined;
+        const imageUrlInput = (fd.get('imageUrl') || '').trim();
+        const imageFile = form.elements['imageFile'].files[0];
+        const description = fd.get('description') || '';
+
+        // Build product object
+        const product = {
+            name,
+            price,
+            category,
+            description,
+            badge: category || '',
+            aliases: [],
+            dateAdded: new Date().toISOString(),
+            affiliates: {}
+        };
+        if (amazonLink) product.affiliates.amazon = amazonLink;
+        if (flipkartLink) product.affiliates.flipkart = flipkartLink;
+
+        // If an image file is provided, read as data URL; otherwise use imageUrlInput
+        if (imageFile) {
+            const dataUrl = await new Promise((res, rej) => {
+                const reader = new FileReader();
+                reader.onload = () => res(reader.result);
+                reader.onerror = rej;
+                reader.readAsDataURL(imageFile);
+            });
+            product.imageUrl = dataUrl; // inline data URL (persisted to localStorage)
+        } else if (imageUrlInput) {
+            product.imageUrl = imageUrlInput;
+        } else {
+            product.imageUrl = 'assets/placeholder.svg';
+        }
+
+        // Persist and merge
+        saveCustomProduct(Object.assign({ branch }, product));
+
+        // Merge into runtime structures so UI updates immediately
+        if (!PRODUCTS_BY_BRANCH[branch]) PRODUCTS_BY_BRANCH[branch] = [];
+        PRODUCTS_BY_BRANCH[branch].push(product);
+        try { PRODUCT_LOOKUP[product.name.toLowerCase()] = product; } catch (e) { /* noop */ }
+
+        showNotification(`✅ Product "${product.name}" added`);
+        close();
+    });
+}
+
+// Load any existing custom products on startup
+document.addEventListener('DOMContentLoaded', loadCustomProducts);
+
+// ===== SIMPLE CLIENT-SIDE AUTH (no external SaaS) =====
+// Provides a friendly login modal and stores a demo user token in localStorage.
+const AUTH_KEY = 'studentgear_auth';
+
+function getStoredUser() {
+    try {
+        const raw = localStorage.getItem(AUTH_KEY);
+        return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+        return null;
+    }
+}
+
+function setStoredUser(user) {
+    try {
+        localStorage.setItem(AUTH_KEY, JSON.stringify(user));
+    } catch (e) {
+        console.error('Failed to store auth', e);
+    }
+}
+
+function clearStoredUser() {
+    localStorage.removeItem(AUTH_KEY);
+}
+
+function updateLoginUI() {
+    const loginBtn = document.querySelector('.login-btn');
+    const user = getStoredUser();
+    if (!loginBtn) return;
+    if (user && user.name) {
+        loginBtn.textContent = `Hi, ${user.name}`;
+        loginBtn.onclick = showUserMenu;
+    } else {
+        loginBtn.textContent = 'Login';
+        loginBtn.onclick = showLoginModal;
+    }
+}
+
+function showLoginModal() {
+    // If modal already exists, focus first input
+    if (document.querySelector('.login-modal')) {
+        document.querySelector('.login-modal input[name="email"]').focus();
+        return;
+    }
+
+    const modal = document.createElement('div');
+    modal.className = 'modal-container login-modal';
+    modal.innerHTML = `
+        <div class="modal-backdrop"></div>
+        <div class="modal-content" style="max-width:420px;padding:18px;">
+            <div class="modal-header">
+                <h3>Login to StudentGear</h3>
+                <button class="modal-close" aria-label="Close">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div style="margin-bottom:8px;"><label>Email</label><input name="email" type="email" required style="width:100%;padding:8px;"/></div>
+                    <div style="margin-bottom:8px;position:relative;"><label>Password</label><input name="password" type="password" required style="width:100%;padding:8px;"/><button type="button" id="togglePwd" style="position:absolute;right:8px;top:32px;padding:4px">Show</button></div>
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><input type="checkbox" id="rememberMe"/><label for="rememberMe">Remember me</label></div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;"><button type="submit" class="btn-primary" style="padding:8px 12px">Login</button><a href="#" id="forgotPwd">Forgot?</a></div>
+                </form>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modal);
+    const close = () => modal.remove();
+    modal.querySelector('.modal-close').addEventListener('click', close);
+    modal.querySelector('.modal-backdrop').addEventListener('click', close);
+
+    const form = modal.querySelector('#loginForm');
+    const toggleBtn = modal.querySelector('#togglePwd');
+    toggleBtn.addEventListener('click', () => {
+        const pwd = form.elements['password'];
+        if (pwd.type === 'password') { pwd.type = 'text'; toggleBtn.textContent = 'Hide'; } else { pwd.type = 'password'; toggleBtn.textContent = 'Show'; }
+    });
+
+    modal.querySelector('#forgotPwd').addEventListener('click', (e) => { e.preventDefault(); showNotification('Check your email for password reset instructions (simulated).'); });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = form.elements['email'].value.trim();
+        const password = form.elements['password'].value;
+        if (!email || !password) { showNotification('Please enter email and password'); return; }
+        // simple email validation
+        const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRe.test(email)) { showNotification('Please enter a valid email'); return; }
+
+        // Simulate server delay
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const orig = submitBtn.textContent;
+        submitBtn.textContent = 'Signing in...';
+        submitBtn.disabled = true;
+        await new Promise(r => setTimeout(r, 900));
+
+        // Fake auth: accept any password >= 4 chars
+        if (password.length < 4) {
+            showNotification('Password too short');
+            submitBtn.disabled = false; submitBtn.textContent = orig; return;
+        }
+
+        const user = { name: email.split('@')[0], email, token: 'demo-token-' + Math.random().toString(36).slice(2, 9) };
+        setStoredUser(user);
+        updateLoginUI();
+        showNotification('✅ Logged in successfully');
+        modal.remove();
+    });
+}
+
+function showUserMenu() {
+    // remove existing menu
+    const existing = document.querySelector('.user-menu'); if (existing) existing.remove();
+    const user = getStoredUser(); if (!user) { updateLoginUI(); return; }
+    const menu = document.createElement('div'); menu.className = 'user-menu';
+    menu.style.position = 'absolute'; menu.style.right = '18px'; menu.style.top = '64px'; menu.style.background = '#fff'; menu.style.border = '1px solid #e5e7eb'; menu.style.padding = '8px'; menu.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)';
+    menu.innerHTML = `<ul style="list-style:none;margin:0;padding:0;"><li style="padding:8px 12px;">Signed in as <strong>${user.name}</strong></li><li style="padding:8px 12px;cursor:pointer;">Profile</li><li style="padding:8px 12px;cursor:pointer;">Orders</li><li style="padding:8px 12px;cursor:pointer;" id="logoutBtn">Logout</li></ul>`;
+    document.body.appendChild(menu);
+    document.addEventListener('click', function onDocClick(e) { if (!menu.contains(e.target) && !document.querySelector('.login-btn').contains(e.target)) { menu.remove(); document.removeEventListener('click', onDocClick); } });
+    menu.querySelector('#logoutBtn').addEventListener('click', () => { clearStoredUser(); updateLoginUI(); menu.remove(); showNotification('👋 Logged out'); });
+}
+
+// Initialize login button state on DOM ready
+document.addEventListener('DOMContentLoaded', updateLoginUI);
