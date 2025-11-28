@@ -56,7 +56,13 @@
         const loginBtn = document.querySelector('.login-btn');
         if (loginBtn) {
             loginBtn.textContent = 'Login';
-            loginBtn.onclick = showFirebaseLoginModal;
+            // Use Firebase modal if Firebase is available and properly initialized, otherwise keep script.js fallback
+            if (typeof FirebaseAuthService !== 'undefined' && 
+                typeof firebaseAuth !== 'undefined' && firebaseAuth && 
+                typeof showFirebaseLoginModal === 'function') {
+                loginBtn.onclick = showFirebaseLoginModal;
+            }
+            // If Firebase is not available, script.js already set up the fallback
         }
         localStorage.removeItem('studentgear_auth');
         window.currentUser = null;
