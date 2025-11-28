@@ -509,7 +509,8 @@ function startServer() {
     const server = http.createServer(app);
 
     function tryListen(port, attemptsLeft = 10) {
-        server.listen(port);
+        // Bind explicitly to 0.0.0.0 so the server accepts connections from other devices on the LAN
+        server.listen(port, '0.0.0.0');
         server.on('listening', () => {
             console.log(`StudentGear backend listening on http://localhost:${port}`);
             console.log(`Startup mode: ${isUsingFirebase ? 'firebase' : 'in-memory'}`);
