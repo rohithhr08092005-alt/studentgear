@@ -21,24 +21,42 @@
     position: absolute;
     top: 100%;
     right: 0;
-    width: 300px;
+    width: 320px;
+    max-width: calc(100vw - 32px);
     background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    padding: 15px;
+    box-shadow: 0 12px 34px rgba(12, 20, 40, 0.12);
+    border-radius: 10px;
+    padding: 16px;
     z-index: 1000;
+    transform-origin: top right;
+    transform: translateY(-6px) scale(0.98);
+    opacity: 0;
+    transition: transform 220ms cubic-bezier(.2, .9, .25, 1), opacity 180ms ease-in-out;
+}
+
+.cart-preview.visible {
+    transform: translateY(0) scale(1);
+    opacity: 1;
 }
 
 .cart-item {
     display: flex;
     align-items: center;
     padding: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #f1f3f5;
+    transition: background 160ms ease;
 }
 
 .item-image {
-    font-size: 24px;
-    margin-right: 10px;
+    font-size: 26px;
+    margin-right: 12px;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
+    border-radius: 8px;
 }
 
 .item-details {
@@ -46,13 +64,15 @@
 }
 
 .item-details h4 {
-    margin: 0;
+    margin: 0 0 6px 0;
     font-size: 14px;
+    line-height: 1.2;
 }
 
 .item-details p {
-    margin: 5px 0 0;
+    margin: 0;
     color: #666;
+    font-size: 13px;
 }
 
 .remove-item {
@@ -61,33 +81,124 @@
     color: #ff4444;
     cursor: pointer;
     font-size: 18px;
-    padding: 5px;
+    padding: 6px;
+    opacity: 0.95;
 }
 
 .cart-total {
     display: flex;
     justify-content: space-between;
-    padding: 15px 10px;
+    padding: 12px 6px;
     font-weight: bold;
 }
 
 .checkout-btn {
     width: 100%;
-    padding: 10px;
-    background: #4CAF50;
+    padding: 12px;
+    background: linear-gradient(90deg, #0375ff, #00c2ff);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(2, 120, 255, 0.18);
+    transition: transform 160ms cubic-bezier(.2, .9, .25, 1), box-shadow 160ms ease;
 }
 
 .checkout-btn:hover {
-    background: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(2, 120, 255, 0.22);
 }
 
 .empty-cart {
     text-align: center;
     color: #666;
     padding: 20px;
+}
+
+/* Removal animation */
+.cart-item.removing {
+    animation: cartItemRemove 260ms ease-in-out forwards;
+}
+
+@keyframes cartItemRemove {
+    0% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+        height: auto;
+    }
+
+    40% {
+        opacity: 0.6;
+        transform: translateX(-8px) scale(0.98);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(-24px) scale(0.96);
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Badge pulse when item added */
+.cart-badge.pulse {
+    animation: badgePulse 700ms cubic-bezier(.2, .9, .25, 1);
+}
+
+@keyframes badgePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+
+    50% {
+        transform: scale(1.28);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+/* Flying image animation used when adding to cart */
+.fly-to-cart {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2000;
+    transition: transform 720ms cubic-bezier(.2, .9, .25, 1), opacity 520ms ease-out;
+    will-change: transform, opacity;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Notification tweaks */
+.notification {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #222;
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 240ms ease, transform 240ms cubic-bezier(.2, .9, .25, 1);
+}
+
+.notification.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.notification.success {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.notification.error {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
 }

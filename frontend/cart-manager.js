@@ -209,9 +209,15 @@ class CartManager {
         }
 
         const button = document.querySelector(`button[data-product="${product.name}"]`);
-        if (button) this.animateButtonSuccess(button);
+        if (button) {
+            this.animateButtonSuccess(button);
+            // Start a flying image animation from the product card to the cart icon
+            this.animateFlyToCart(product.name, button);
+        }
 
         this.updateCart();
+        // Pulse the badge to indicate activity
+        this.pulseBadge();
 
         // attempt to persist to server; if offline, we'll keep local copy
         this.syncAddToServer(product).catch(err => {
@@ -222,6 +228,77 @@ class CartManager {
     animateButtonSuccess(button) {
         button.classList.add('success');
         setTimeout(() => button.classList.remove('success'), 1000);
+    }
+
+    pulseBadge() {
+        const badge = document.querySelector('.cart-badge');
+        if (!badge) return;
+        badge.classList.add('pulse');
+        setTimeout(() => badge.classList.remove('pulse'), 900);
+    }
+
+    animateFlyToCart(productName, sourceButton) {
+        try {
+            // Find product card and image element
+            const btn = sourceButton || document.querySelector(`button[data-product="${productName}"]`);
+            if (!btn) return;
+            const card = btn.closest('.product-card');
+            if (!card) return;
+
+            // Prefer an <img> inside the card if present
+            const img = card.querySelector('img') || card.querySelector('.product-image');
+            const rect = img ? img.getBoundingClientRect() : card.getBoundingClientRect();
+
+            // Create a clone element to animate
+            const clone = (img && img.cloneNode(true)) || document.createElement('div');
+            clone.classList.add('fly-to-cart');
+            if (!img) {
+                clone.textContent = productName;
+                clone.style.padding = '8px 12px';
+                clone.style.background = '#fff';
+                clone.style.border = '1px solid #eee';
+            }
+
+            // Set initial position
+            clone.style.left = `${rect.left}px`;
+            clone.style.top = `${rect.top}px`;
+            clone.style.width = `${rect.width}px`;
+            clone.style.height = `${rect.height}px`;
+            clone.style.position = 'fixed';
+            clone.style.opacity = '1';
+            document.body.appendChild(clone);
+
+            // Target is cart icon center
+            const cartIcon = document.querySelector('.cart-icon');
+            const targetRect = cartIcon ? cartIcon.getBoundingClientRect() : { left: window.innerWidth - 40, top: 20, width: 32, height: 32 };
+            const targetX = targetRect.left + targetRect.width / 2;
+            const targetY = targetRect.top + targetRect.height / 2;
+
+            const startX = rect.left + rect.width / 2;
+            const startY = rect.top + rect.height / 2;
+
+            // Compute translate values
+            const translateX = targetX - startX;
+            const translateY = targetY - startY;
+            const scale = 0.28;
+
+            // Trigger transform in next frame
+            requestAnimationFrame(() => {
+                clone.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                clone.style.transition = 'transform 720ms cubic-bezier(.2,.9,.25,1), opacity 520ms ease-out';
+                clone.style.opacity = '0.02';
+            });
+
+            // Clean up after animation
+            setTimeout(() => {
+                try { clone.remove(); } catch (e) { }
+                // tiny badge pulse for emphasis
+                this.pulseBadge();
+            }, 800);
+        } catch (e) {
+            // ignore animation errors
+            console.warn('fly to cart animation failed', e);
+        }
     }
 
     removeFromCart(productName) {
